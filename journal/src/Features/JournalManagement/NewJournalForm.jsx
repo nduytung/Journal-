@@ -17,7 +17,7 @@ let submitNewJournal = async () => {
 
   await fetch("http://localhost:3002/items", requestPackage)
     .then((response) => {
-      toast("Your journal has been added successfully !");
+      toast.success("Your journal has been added successfully !");
     })
     .catch((err) => {
       toast.error("Gửi dữ liệu thất bại ! Hãy start data.json ở port 3002");

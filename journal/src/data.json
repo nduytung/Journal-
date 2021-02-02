@@ -1,3 +1,29 @@
 {
-  "items": []
+  "items": [
+    {
+      "name": "Clean up the laptop",
+      "description": "Been 7 months since the last time u cleant it up",
+      "id": 1
+    },
+    {
+      "name": "replace the bulb",
+      "description": "The bathroom's bulb been broken. Buy another one",
+      "id": 2
+    },
+    {
+      "name": "Replace guitar strings",
+      "description": "Not gonna buy Alice's strings anymore",
+      "id": 3
+    },
+    {
+      "name": "refill the printer's ink",
+      "description": "not much ink left ",
+      "id": 4
+    },
+    {
+      "name": "I know, sorry to take note in a journal book",
+      "description": "I'm just too lazy to fix it",
+      "id": 5
+    }
+  ]
 }
