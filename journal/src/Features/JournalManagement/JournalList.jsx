@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 const renderJounalItems = (items, setCurJournal) => {
   let itemArr = [];
   //Nếu vẫn chưa có journal nào để hiển thị
-  if (items.length == 0)
+  if (items.length === 0)
     return (
       <div className="text-secondary mt-5 text-center col-12">
         You have no journal yet

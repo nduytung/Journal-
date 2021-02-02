@@ -8,7 +8,7 @@ const loginCheck = (changeLoginState) => {
   };
 
   //vì set cứng user và pass là "admin" nên
-  if (inputData.name == "admin" && inputData.password == "admin")
+  if (inputData.name === "admin" && inputData.password === "admin")
     //thay đổi state của logged in, để cho bên App.js tự redirect
     changeLoginState();
 };
