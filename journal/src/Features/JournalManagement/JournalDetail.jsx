@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 
 // SỬA ITEM
-const changeJournalDetail = async (id, setRefresh) => {
+const changeJournalDetail = async (id, setRefresh, setModifiedDate) => {
   let requestPackage = {
     method: "PUT",
     headers: {
@@ -15,6 +15,9 @@ const changeJournalDetail = async (id, setRefresh) => {
 
   await fetch(`http://localhost:3002/items/${id}`, requestPackage);
 
+  //thay đổi ngày tháng modify
+  let d = new Date();
+  setModifiedDate(`${d.getFullYear()}/${d.getMonth()}/${d.getDate()}`);
   //REFETCH LẠI ĐỂ BÊN LIST HIỂN THỊ CHÍNH XÁC NỘI DUNG
   setRefresh(true);
 };
@@ -32,7 +35,7 @@ let JournalDetail = (props) => {
   //setCurJournal để thay đổi và curJournal lên database
   //setRefresh để refetch lại mỗi lần detail dc update
   let { curJournal, setCurJournal, setRefresh } = props;
-
+  let [modifiedDate, setModifiedDate] = useState("never");
   //DÙNG ĐỂ HANDLE DATA MỖI LẦN NHẬP VÀO INPUT
   let handleChange = (event) => {
     let { name, value } = event.target;
@@ -70,11 +73,17 @@ let JournalDetail = (props) => {
             onChange={handleChange}
           ></textarea>
           <hr />
+
+          <div className="text-secondary">
+            Last modification: {modifiedDate}
+          </div>
         </div>
         <div className="float-right">
           <button
             className="btn btn-primary mr-3"
-            onClick={() => changeJournalDetail(curJournal.id, setRefresh)}
+            onClick={() =>
+              changeJournalDetail(curJournal.id, setRefresh, setModifiedDate)
+            }
           >
             Save
           </button>
