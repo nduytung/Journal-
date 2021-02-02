@@ -1,6 +1,9 @@
 import React from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-let sendData = async () => {
+//fetch journal mới của user lên DB
+let submitNewJournal = async () => {
   let data = {
     name: document.getElementById("journal-title").value,
     description: document.getElementById("journal-description").value,
@@ -12,8 +15,17 @@ let sendData = async () => {
     body: JSON.stringify(data),
   };
 
-  let response = await fetch("http://localhost:3002/items", requestPackage);
-  let resolve = await response.json();
+  await fetch("http://localhost:3002/items", requestPackage)
+    .then((response) => {
+      toast("Your journal has been added successfully !");
+    })
+    .catch((err) => {
+      toast.error("Gửi dữ liệu thất bại ! Hãy start data.json ở port 3002");
+    });
+
+  //thay đổi value của 2 cái input về rỗng
+  document.getElementById("journal-title").value = "";
+  document.getElementById("journal-description").value = "";
 };
 
 const NewJournalForm = () => {
@@ -42,11 +54,12 @@ const NewJournalForm = () => {
           <hr />
         </div>
         <div className="float-right">
-          <button className="btn btn-primary mr-3" onClick={sendData}>
+          <button className="btn btn-primary mr-3" onClick={submitNewJournal}>
             Save
           </button>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

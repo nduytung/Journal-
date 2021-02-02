@@ -7,11 +7,14 @@ import {
   NavLink,
   Redirect,
 } from "react-router-dom";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import NewJournalForm from "./Features/JournalManagement/NewJournalForm";
 import JournalList from "./Features/JournalManagement/JournalList";
 import LoginPage from "./Features/Login/Login";
 
+//render ra các tab và nút logout
+//nếu user đã login thì mới hiển thị ra cái này
 const renderMenu = (loginState, changeLoginState) => {
   if (loginState == true)
     return (
@@ -31,11 +34,14 @@ const renderMenu = (loginState, changeLoginState) => {
 };
 
 const App = () => {
+  //trạng thái đăng nhập của người dùng
   let [loginState, setLoginState] = useState(false);
+
+  //hàm truyền xuống cho login component, để thay đổi loginState
   const changeLoginState = () => {
     setLoginState(!loginState);
-    console.log(loginState);
   };
+
   return (
     <Router>
       <div className="App">
@@ -43,6 +49,7 @@ const App = () => {
 
         <div className="MainArea">
           <Switch>
+            {/* KIỂM TRA XEM LOGIN CHƯA, NẾU RỒI THÌ TỰ REDIRECT QUA BÊN MY JOURNAL  */}
             <Route path="/" exact>
               {loginState == true ? (
                 <Redirect to="/my-journal" />
@@ -50,10 +57,14 @@ const App = () => {
                 <LoginPage changeLoginState={changeLoginState} />
               )}
             </Route>
+
             <Route path="/my-journal">
+              {/* NẾU CHƯA LOGIN THÌ SẼ BỊ REDIRECT VỀ TRANG LOGIN  */}
               {loginState == true ? <JournalList /> : <Redirect to="/" />}
             </Route>
+
             <Route path="/new-journal">
+              {/* NẾU CHƯA LOGIN THÌ SẼ BỊ REDIRECT VỀ TRANG LOGIN  */}
               {loginState == true ? <NewJournalForm /> : <Redirect to="/" />}
             </Route>
           </Switch>

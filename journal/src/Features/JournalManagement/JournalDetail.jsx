@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
+// SỬA ITEM
 const changeJournalDetail = async (id, setRefresh) => {
   let requestPackage = {
     method: "PUT",
     headers: {
-      "Content-type": "application/json", // Indicates the content
+      "Content-type": "application/json",
     },
     body: JSON.stringify({
       name: document.getElementById("journal-detail-title").value,
@@ -14,17 +15,29 @@ const changeJournalDetail = async (id, setRefresh) => {
 
   await fetch(`http://localhost:3002/items/${id}`, requestPackage);
 
+  //REFETCH LẠI ĐỂ BÊN LIST HIỂN THỊ CHÍNH XÁC NỘI DUNG
   setRefresh(true);
 };
 
+//XÓA ITEM
 const deleteJournalDetail = async (id, setRefresh) => {
-  await fetch(`http://localhost:3002/items/${id}`, { method: "DELETE" });
-
+  let requestPackage = { method: "DELETE" };
+  await fetch(`http://localhost:3002/items/${id}`, requestPackage);
+  //REFETCH LẠI ĐỂ BÊN LIST HIỂN THỊ ĐÚNG NỘI DUNG
   setRefresh(true);
 };
 
 let JournalDetail = (props) => {
-  let { curJournal, setRefresh } = props;
+  //curJournal là item đang hiển thị detail
+  //setCurJournal để thay đổi và curJournal lên database
+  //setRefresh để refetch lại mỗi lần detail dc update
+  let { curJournal, setCurJournal, setRefresh } = props;
+
+  //DÙNG ĐỂ HANDLE DATA MỖI LẦN NHẬP VÀO INPUT
+  let handleChange = (event) => {
+    let { name, value } = event.target;
+    setCurJournal({ ...curJournal, [name]: value });
+  };
 
   return (
     <div>
@@ -37,7 +50,10 @@ let JournalDetail = (props) => {
             className="title-input-field"
             placeholder="Journal Title"
             id="journal-detail-title"
-            defaultValue={curJournal.name}
+            //INPUT TRONG REACT PHẢI CÓ VALUE, ONCHANGE VÀ NAME THÌ MÓI EDIT DCDC
+            value={curJournal.name}
+            name="name"
+            onChange={handleChange}
           ></input>
           <hr />
         </div>
@@ -49,7 +65,9 @@ let JournalDetail = (props) => {
             rows="10"
             placeholder="Journal Description"
             id="journal-detail-description"
-            defaultValue={curJournal.description}
+            name="description"
+            value={curJournal.description}
+            onChange={handleChange}
           ></textarea>
           <hr />
         </div>
