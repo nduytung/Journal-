@@ -9,6 +9,7 @@ const renderJounalItems = (items, setCurJournal) => {
         className="journal-item mt-2 mb-2 lead p-3"
         onClick={() =>
           getCurJournal(setCurJournal, {
+            id: item.id,
             name: item.name,
             description: item.description,
           })
@@ -36,13 +37,16 @@ const getCurJournal = (setCurJournal, curJournal) => {
 const JournalList = () => {
   let [journalItems, setJournalItems] = useState([]);
   let [curJournal, setCurJournal] = useState({
+    id: "",
     name: "",
     description: "",
   });
 
+  let [refresh, setRefresh] = useState(false);
+
   useEffect(() => {
     getData().then((response) => setJournalItems(response));
-  }, []);
+  }, [refresh]);
 
   return (
     <div className="container">
@@ -60,7 +64,7 @@ const JournalList = () => {
           </div>
         </div>
         <div className="col-8 bg-white">
-          <JournalDetail curJournal={curJournal} />
+          <JournalDetail curJournal={curJournal} setRefresh={setRefresh} />
         </div>
       </div>
     </div>

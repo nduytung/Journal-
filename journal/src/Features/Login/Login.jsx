@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-
-const loginCheck = async (callback) => {
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+const loginCheck = async (changeLoginState) => {
   let inputData = {
     name: document.getElementById("user-name").value,
     password: document.getElementById("user-password").value,
@@ -11,7 +11,7 @@ const loginCheck = async (callback) => {
 
   data.map((item) => {
     if (item.name == inputData.name && item.password == inputData.password) {
-      callback();
+      changeLoginState();
     }
   });
 };
@@ -19,7 +19,7 @@ const loginCheck = async (callback) => {
 const Login = (props) => {
   let { changeLoginState } = props;
   return (
-    <div className="container">
+    <div className="container mt-5">
       <div className="row text-center ">
         <div className="col-5 m-auto p-5 login-wrapper">
           <h1 className="login-header">Login to continue </h1>

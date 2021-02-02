@@ -246,3 +246,8 @@ a {
   background-color: #f2f2f7;
   border-radius: 8px;
 }
+
+.logout {
+  background-color: dodgerblue;
+  color: white !important;
+}

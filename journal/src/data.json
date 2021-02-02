@@ -1,27 +1,24 @@
 {
   "items": [
     {
-      "id": 1,
-      "name": "NIKE Liteforce Blue Sneakers",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin molestie.",
-      "status": "Available"
-    },
-    {
-      "name": "",
-      "description": "",
+      "name": "Finish homework replaces 2",
+      "description": "Remember to check out the battery",
       "id": 2
     },
     {
-      "id": 3,
-      "name": "ADIDAS Adispree Running Shoes",
-      "description": "Maecenas condimentum porttitor auctor. Maecenas viverra fringilla felis, eu pretium.",
-      "status": "Available"
+      "id": 4,
+      "name": "Replace the bulb in the bathroom",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin molestie."
     },
     {
-      "id": 4,
-      "name": "ADIDAS Mid Sneakers",
-      "description": "Ut hendrerit venenatis lacus, vel lacinia ipsum fermentum vel. Cras.",
-      "status": "Out of Stock"
+      "id": 5,
+      "name": "Why am I taking note in a journal ?",
+      "description": "Sorry, I'm too lazy to fix these things."
+    },
+    {
+      "name": "Final test ",
+      "description": "This is a test sent from New Journal tab ",
+      "id": 6
     }
   ]
 }

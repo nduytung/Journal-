@@ -27,7 +27,6 @@ const NewJournalForm = () => {
             className="title-input-field"
             placeholder="Journal Title"
             id="journal-title"
-            value="bla bla"
           ></input>
           <hr />
         </div>

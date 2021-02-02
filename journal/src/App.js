@@ -5,13 +5,14 @@ import {
   Switch,
   Route,
   NavLink,
+  Redirect,
 } from "react-router-dom";
 
 import NewJournalForm from "./Features/JournalManagement/NewJournalForm";
 import JournalList from "./Features/JournalManagement/JournalList";
 import LoginPage from "./Features/Login/Login";
 
-const renderMenu = (loginState) => {
+const renderMenu = (loginState, changeLoginState) => {
   if (loginState == true)
     return (
       <div className="option-area container mt-5 pl-0">
@@ -21,34 +22,39 @@ const renderMenu = (loginState) => {
         <NavLink className="tab" to="/new-journal">
           New journal
         </NavLink>
+        <button className="tab logout" onClick={changeLoginState}>
+          Log out
+        </button>
       </div>
     );
   else return <div className="option-area"></div>;
 };
 
-const changeLoginState = (loginState, setLoginState) => {
-  setLoginState(true);
-  console.log(loginState);
-};
-
 const App = () => {
-  let [loginState, setLoginState] = useState(true);
-
+  let [loginState, setLoginState] = useState(false);
+  const changeLoginState = () => {
+    setLoginState(!loginState);
+    console.log(loginState);
+  };
   return (
     <Router>
       <div className="App">
-        {renderMenu(loginState)}
+        {renderMenu(loginState, changeLoginState)}
 
         <div className="MainArea">
           <Switch>
             <Route path="/" exact>
-              <LoginPage />
+              {loginState == true ? (
+                <Redirect to="/my-journal" />
+              ) : (
+                <LoginPage changeLoginState={changeLoginState} />
+              )}
             </Route>
             <Route path="/my-journal">
-              <JournalList />
+              {loginState == true ? <JournalList /> : <Redirect to="/" />}
             </Route>
             <Route path="/new-journal">
-              <NewJournalForm />
+              {loginState == true ? <NewJournalForm /> : <Redirect to="/" />}
             </Route>
           </Switch>
         </div>

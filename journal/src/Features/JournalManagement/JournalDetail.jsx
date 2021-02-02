@@ -1,49 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-let getJournalData = () => {
-  let data = {
-    name: document.getElementById("journal-detail-title").value,
-    description: document.getElementById("journal-detail-description").value,
-  };
-  return data;
-};
-
-const changeJournalDetail = async (id) => {
-  let data = getJournalData();
-
+const changeJournalDetail = async (id, setRefresh) => {
   let requestPackage = {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
+    headers: {
+      "Content-type": "application/json", // Indicates the content
+    },
+    body: JSON.stringify({
+      name: document.getElementById("journal-detail-title").value,
+      description: document.getElementById("journal-detail-description").value,
+    }),
   };
 
-  let response = await fetch(
-    `http://localhost:3002/items/${id}`,
-    requestPackage
-  );
+  await fetch(`http://localhost:3002/items/${id}`, requestPackage);
 
-  let resolve = await response.json();
-  console.log(`New data: ${resolve[1]}`);
+  setRefresh(true);
 };
 
-const deleteJournalDetail = async (id) => {
-  let data = getJournalData();
-  let requestPackage = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  };
+const deleteJournalDetail = async (id, setRefresh) => {
+  await fetch(`http://localhost:3002/items/${id}`, { method: "DELETE" });
 
-  let response = await fetch(
-    `http://localhost:3002/items/${id}`,
-    requestPackage
-  );
-
-  let resolve = await response.json();
+  setRefresh(true);
 };
 
-const JournalDetail = (props) => {
-  let { curJournal } = props;
+let JournalDetail = (props) => {
+  let { curJournal, setRefresh } = props;
 
   return (
     <div>
@@ -56,6 +37,7 @@ const JournalDetail = (props) => {
             className="title-input-field"
             placeholder="Journal Title"
             id="journal-detail-title"
+            defaultValue={curJournal.name}
           ></input>
           <hr />
         </div>
@@ -67,18 +49,23 @@ const JournalDetail = (props) => {
             rows="10"
             placeholder="Journal Description"
             id="journal-detail-description"
-            value={curJournal.description}
+            defaultValue={curJournal.description}
           ></textarea>
           <hr />
         </div>
         <div className="float-right">
           <button
             className="btn btn-primary mr-3"
-            onClick={changeJournalDetail(2)}
+            onClick={() => changeJournalDetail(curJournal.id, setRefresh)}
           >
             Save
           </button>
-          <button className="btn btn-primary">Delete</button>
+          <button
+            className="btn btn-primary"
+            onClick={() => deleteJournalDetail(curJournal.id, setRefresh)}
+          >
+            Delete
+          </button>
         </div>
       </div>
     </div>
